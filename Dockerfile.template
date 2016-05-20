@@ -16,7 +16,7 @@ RUN cd RTIMULib/RTIMULib && mkdir build && cd build && cmake .. && make -j4 && m
 RUN cd RTIMULib/Linux/python && python setup.py build && python setup.py install
 
 RUN git clone https://github.com/intel-iot-devkit/mraa.git
-RUN cd mraa && mkdir build && cmake .. -DBUILDSWIGNODE=OFF && make && make install
-RUN export PYTHONPATH=$PYTHONPATH:$(dirname $(find /usr/local -name mraa.py))
+#RUN cd mraa && mkdir build && cmake .. -DBUILDSWIGNODE=OFF && make && make install
+#RUN export PYTHONPATH=$PYTHONPATH:$(dirname $(find /usr/local -name mraa.py))
 
 CMD python main.py
