@@ -41,9 +41,7 @@ uart = mraa.Uart(0)
 ser = serial.Serial(uart.getDevicePath(), 9600)
 
 while True:
-  ser.write("TEST")
-  print ser.read(4)
-
+  ser.write("r")
 
   if imu.IMURead():
     data = imu.getIMUData()
