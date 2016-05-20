@@ -1,4 +1,4 @@
-import sys, getopt
+import sys, getopt, serial, mraa
 
 sys.path.append('.')
 import RTIMU
@@ -36,7 +36,15 @@ print("Recommended Poll Interval: %dmS\n" % poll_interval)
 smoothed_rpm = 0
 loop_counter = 0
 
+
+uart = mraa.Uart(1)
+ser = serial.Serial(uart.getDevicePath(), 9600)
+
 while True:
+  ser.write("TEST")
+  print ser.read(4)
+
+
   if imu.IMURead():
     data = imu.getIMUData()
     gyro = data["gyro"]
