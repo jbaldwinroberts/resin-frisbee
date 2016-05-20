@@ -33,15 +33,19 @@ imu.setCompassEnable(True)
 poll_interval = imu.IMUGetPollInterval()
 print("Recommended Poll Interval: %dmS\n" % poll_interval)
 
+smoothed_rpm = 0
+loop_counter = 0
+
 while True:
   if imu.IMURead():
-    # x, y, z = imu.getFusionData()
-    # print("%f %f %f" % (x,y,z))
     data = imu.getIMUData()
-    #fusionPose = data["fusionPose"]
-    #print("r: %f p: %f y: %f" % (math.degrees(fusionPose[0]), math.degrees(fusionPose[1]), math.degrees(fusionPose[2])))
     gyro = data["gyro"]
     rpm = math.degrees(gyro[2]) * 0.1666666667
-    print("rpm: %f" % (rpm)) 
-    time.sleep(1) #poll_interval*1.0/1000.0)
+    smoothed_rpm *= 0.992
+    smoothed_rpm += rpm * 0.008
+    loop_counter++
+    if(loop_counter == 250)
+        print("rpm: %f" % (smoothed_rpm))
+        loop_counter = 0
+    time.sleep(poll_interval*1.0/1000.0)
 
