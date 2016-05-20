@@ -52,7 +52,7 @@ while True:
     smoothed_rpm *= 0.992
     smoothed_rpm += rpm * 0.008
     loop_counter += 1
-    if loop_counter == 250
+    if loop_counter == 250:
         print("rpm: %f" % (smoothed_rpm))
         loop_counter = 0
     time.sleep(poll_interval*1.0/1000.0)
