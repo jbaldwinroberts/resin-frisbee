@@ -13,5 +13,4 @@ RUN echo '/usr/local/lib' > /etc/ld.so.conf
 RUN cd RTIMULib/RTIMULib && mkdir build && cd build && cmake .. && make -j4 && make install && ldconfig
 RUN cd RTIMULib/Linux/python && python setup.py build && python setup.py install
 
-
-#CMD cd RTIMULib2/Linux/python/tests && python Fusion.python
+CMD python main.py
