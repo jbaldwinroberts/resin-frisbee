@@ -43,7 +43,7 @@ while True:
     rpm = math.degrees(gyro[2]) * 0.1666666667
     smoothed_rpm *= 0.992
     smoothed_rpm += rpm * 0.008
-    loop_counter++
+    loop_counter += 1
     if(loop_counter == 250)
         print("rpm: %f" % (smoothed_rpm))
         loop_counter = 0
