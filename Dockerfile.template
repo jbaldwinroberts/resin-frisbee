@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 
 RUN echo '/usr/local/lib\n' > /etc/ld.so.conf && ldconfig
 
-RUN cd RTIMULib2 && mkdir build && cd build && cmake .. && make -j4 && make install && ldconfig
+RUN cd RTIMULib2/RTIMULib && mkdir build && cd build && cmake .. && make -j4 && make install && ldconfig
 
 RUN cd RTIMULib2/Linux/python && python setup.py build && python setup.py install
 
