@@ -3,14 +3,20 @@ FROM resin/%%RESIN_MACHINE_NAME%%-debian
 ENV INITSYSTEM on
 
 RUN apt-get -q update && apt-get install -yq --no-install-recommends \
-	build-essential cmake python-dev \
+	build-essential git cmake swig libpcre3-dev python-dev python-serial \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
 RUN echo '/usr/local/lib' > /etc/ld.so.conf
+RUN echo '/usr/local/lib/i386-linux-gnu/' > /etc/ld.so.conf
+
 RUN cd RTIMULib/RTIMULib && mkdir build && cd build && cmake .. && make -j4 && make install && ldconfig
 RUN cd RTIMULib/Linux/python && python setup.py build && python setup.py install
+
+RUN git clone https://github.com/intel-iot-devkit/mraa.git
+RUN cd mraa && mkdir build && cmake .. -DBUILDSWIGNODE=OFF && make && make install
+RUN export PYTHONPATH=$PYTHONPATH:$(dirname $(find /usr/local -name mraa.py))
 
 CMD python main.py
