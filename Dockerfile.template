@@ -9,7 +9,7 @@ RUN apt-get -q update && apt-get install -yq --no-install-recommends \
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN echo '/usr/local/lib\n' > /etc/ld.so.conf && ldconfig
+#RUN echo '/usr/local/lib\n' > /etc/ld.so.conf && ldconfig
 
 #RUN cd RTIMULib2/RTIMULib && mkdir build && cd build && cmake .. && make -j4 && make install && ldconfig
 
