@@ -60,7 +60,7 @@ while True:
 
     if flight_time == 0 and smoothed_rpm >= 5:
         flight_time = time.time()
-    else if flight_time != 0 and smoothed_rpm < 5:
+    elif flight_time != 0 and smoothed_rpm < 5:
         print("Flight time: %f" % (time.time() - flight_time))
         flight_time = 0
 
