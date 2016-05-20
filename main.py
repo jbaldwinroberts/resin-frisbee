@@ -39,7 +39,7 @@ while True:
     # print("%f %f %f" % (x,y,z))
     data = imu.getIMUData()
     fusionPose = data["fusionPose"]
-    print("r: %f p: %f y: %f" % (math.degrees(fusionPose[0]), math.degrees(fusionPose[1]), math.degrees(fusionPose[2])))
+    #print("r: %f p: %f y: %f" % (math.degrees(fusionPose[0]), math.degrees(fusionPose[1]), math.degrees(fusionPose[2])))
     gyro = data["gyro"]
     print("r: %f p: %f y: %f" % (gyro[0], gyro[1], gyro[2]))
 
