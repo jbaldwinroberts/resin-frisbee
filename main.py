@@ -43,6 +43,6 @@ while True:
     gyro = data["gyro"]
     gyro = math.degrees(gyro)
     gyro = gyro * 0.1666666667;
-    print("roll: %f pitch: %f yaw: %f" % (gyro[0], gyro[1], gyro[2])   
+    print("roll: %f pitch: %f yaw: %f" % (gyro[0], gyro[1], gyro[2]))   
     time.sleep(1) #poll_interval*1.0/1000.0)
 
