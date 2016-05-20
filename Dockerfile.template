@@ -9,14 +9,13 @@ RUN apt-get -q update && apt-get install -yq --no-install-recommends \
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN echo '/usr/local/lib' > /etc/ld.so.conf
-RUN echo '/usr/local/lib/i386-linux-gnu/' > /etc/ld.so.conf
+RUN echo '/usr/local/lib' > /etc/ld.so.conf && echo '/usr/local/lib/i386-linux-gnu/' > /etc/ld.so.conf && ldconfig
 
-RUN cd RTIMULib/RTIMULib && mkdir build && cd build && cmake .. && make -j4 && make install && ldconfig
+RUN cd RTIMULib/RTIMULib && mkdir build && cd build && cmake .. && make -j4 && make install
 RUN cd RTIMULib/Linux/python && python setup.py build && python setup.py install
 
 RUN git clone https://github.com/intel-iot-devkit/mraa.git
-#RUN cd mraa && mkdir build && cmake .. -DBUILDSWIGNODE=OFF && make && make install
-#RUN export PYTHONPATH=$PYTHONPATH:$(dirname $(find /usr/local -name mraa.py))
+RUN cd mraa && mkdir build && cd build && cmake .. -DBUILDSWIGNODE=OFF && make -j4 && make install
+RUN export PYTHONPATH=$PYTHONPATH:$(dirname $(find /usr/local -name mraa.py))
 
 CMD python main.py

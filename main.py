@@ -37,7 +37,7 @@ smoothed_rpm = 0
 loop_counter = 0
 
 
-uart = mraa.Uart(1)
+uart = mraa.Uart(0)
 ser = serial.Serial(uart.getDevicePath(), 9600)
 
 while True:
