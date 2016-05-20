@@ -41,8 +41,7 @@ while True:
     #fusionPose = data["fusionPose"]
     #print("r: %f p: %f y: %f" % (math.degrees(fusionPose[0]), math.degrees(fusionPose[1]), math.degrees(fusionPose[2])))
     gyro = data["gyro"]
-    gyro = math.degrees(gyro)
-    gyro = gyro * 0.1666666667;
-    print("roll: %f pitch: %f yaw: %f" % (gyro[0], gyro[1], gyro[2]))   
+    rpm = math.degrees(gyro[2]) * 0.1666666667
+    print("rpm: %f" % (rpm)) 
     time.sleep(1) #poll_interval*1.0/1000.0)
 
