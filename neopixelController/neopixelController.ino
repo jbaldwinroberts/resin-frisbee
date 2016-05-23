@@ -15,6 +15,18 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, 6, NEO_GRB + NEO_KHZ800);
 STATE state = Initialising;
 int frequency = 1;
 
+void enable(uint32_t c)
+{
+  for(uint16_t i=0; i < strip.numPixels(); i++) strip.setPixelColor(i, c);
+  strip.show();
+}
+
+void disable()
+{
+  for(uint16_t i=0; i < strip.numPixels(); i++) strip.setPixelColor(i, strip.Color(0, 0, 0));
+  strip.show();
+}
+
 void flash(uint32_t c)
 {
   enable(c);
@@ -38,18 +50,6 @@ void theaterChase(uint32_t c, uint8_t wait) {
       }
     }
   }
-}
-
-void enable(uint32_t c)
-{
-  for(uint16_t i=0; i < strip.numPixels(); i++) strip.setPixelColor(i, c);
-  strip.show();
-}
-
-void disable()
-{
-  for(uint16_t i=0; i < strip.numPixels(); i++) strip.setPixelColor(i, strip.Color(0, 0, 0));
-  strip.show();
 }
 
 uint32_t Wheel(byte WheelPos) {
