@@ -36,7 +36,7 @@ print("Recommended Poll Interval: %dmS\n" % poll_interval)
 smoothed_rpm = 0
 loop_counter = 0
 flight_time = 0
-top_score = 0
+#top_score = 0
 
 
 uart = mraa.Uart(0)
@@ -64,10 +64,10 @@ while True:
         print("Flight time: %f" % (time.time() - flight_time))
         flight_time = 0
 
-    if smoothed_rpm >= 5:
-        ser.write(math.round(smoothed_rpm / 10, 0))
-    else:
-       ser.write("r") 
+    # if smoothed_rpm >= 5:
+    #     ser.write(math.round(smoothed_rpm / 10, 0))
+    # else:
+    #    ser.write("r") 
 
     time.sleep(poll_interval*1.0/1000.0)
 
