@@ -50,7 +50,7 @@ while True:
     if uart.dataAvailable() > 0:
         message = ""
         while uart.dataAvailable():
-            message += uart.read()
+            message += uart.readStr()
         print(message)
     time.sleep(5)
 
