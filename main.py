@@ -40,6 +40,9 @@ flight_time = 0
 
 
 uart = mraa.Uart(0)
+uart.setBaudRate(9600)
+uart.setMode(8, mraa.UART_PARITY_NONE, 1)
+uart.setFlowcontrol(False, False)
 #ser = serial.Serial(uart.getDevicePath(), 9600)
 
 #ser.write("r")
