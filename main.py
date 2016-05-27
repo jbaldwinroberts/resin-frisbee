@@ -40,17 +40,17 @@ flight_time = 0
 
 
 uart = mraa.Uart(0)
-ser = serial.Serial(uart.getDevicePath(), 9600)
+#ser = serial.Serial(uart.getDevicePath(), 9600)
 
 #ser.write("r")
 
 while True:
   
-    ser.write("r")
-    if ser.dataAvailable() > 0:
+    uart.write("r")
+    if uart.dataAvailable() > 0:
         message = ""
-        while ser.dataAvailable():
-            message += ser.read()
+        while uart.dataAvailable():
+            message += uart.read()
         print(message)
     time.sleep(5)
 
