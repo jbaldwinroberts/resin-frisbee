@@ -1,5 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, 6, NEO_GRB + NEO_KHZ800);
+
 enum STATE
 {
   Initialising,
@@ -8,7 +10,6 @@ enum STATE
   Score
 };
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, 6, NEO_GRB + NEO_KHZ800);
 STATE state = Initialising;
 int frequency = 1;
 
@@ -26,10 +27,23 @@ void disable()
 
 void flash(uint32_t c)
 {
-  enable(c);
-  delay(1000 / frequency);
-  disable();
-  delay(1000 / frequency);
+  static unsigned long timer = millis();
+  static bool on = false;
+  if(millis() - timer > (1000 / frequency))
+  {
+    if(on == false)
+    {
+      enable(c);
+      on = true;
+      timer = millis();
+    }
+    else if(on == true)
+    {
+      disable();
+      on = false;
+      timer = millis();
+    }
+  }
 }
 
 void theaterChase(uint32_t c, uint8_t wait) {
@@ -89,8 +103,6 @@ void loop()
       message += (char)Serial.read();
     }
 
-    //Serial.println(message);
-
     if(message == "i")
     {
       state = Initialising;
@@ -103,7 +115,7 @@ void loop()
     }
     else if(message == "s")
     {
-      state = Score;
+      //state = Score;
     }
     else
     {

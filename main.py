@@ -30,11 +30,7 @@ imu.setGyroEnable(True)
 imu.setAccelEnable(True)
 imu.setCompassEnable(True)
 
-poll_interval = imu.IMUGetPollInterval()
-print("Recommended Poll Interval: %dmS\n" % poll_interval)
-
 smoothed_rpm = 0
-loop_counter = 0
 flight_time = 0
 #top_score = 0
 
@@ -51,24 +47,20 @@ while True:
         data = imu.getIMUData()
         gyro = data["gyro"]
         rpm = math.degrees(gyro[2]) * 0.1666666667
-        smoothed_rpm *= 0.992
-        smoothed_rpm += rpm * 0.008
+        smoothed_rpm *= 0.75
+        smoothed_rpm += rpm * 0.25
 
-        loop_counter += 1
-        if loop_counter == 250:
-            print("rpm: %f" % (smoothed_rpm))
-            loop_counter = 0
+        print("rpm: %f" % (smoothed_rpm))
 
         if flight_time == 0 and smoothed_rpm >= 5:
             flight_time = time.time()
         elif flight_time != 0 and smoothed_rpm < 5:
-            print("Flight time: %f" % (time.time() - flight_time))
             flight_time = 0
 
         if smoothed_rpm >= 5:
-            uart.writeStr("f=" + math.round(smoothed_rpm / 10, 0) + "#")
+            uart.writeStr(math.round(smoothed_rpm / 10, 0))
         else:
            uart.writeStr("r")
 
-        time.sleep(poll_interval*1.0/1000.0)
+        time.sleep(1)
 
