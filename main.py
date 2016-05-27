@@ -46,7 +46,7 @@ uart = mraa.Uart(0)
 
 while True:
   
-    uart.write("r")
+    uart.writeStr("r")
     if uart.dataAvailable() > 0:
         message = ""
         while uart.dataAvailable():
