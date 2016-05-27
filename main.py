@@ -77,9 +77,9 @@ while True:
             flight_time = 0
 
         if smoothed_rpm >= 5:
-            uart.write(math.round(smoothed_rpm / 10, 0))
+            uart.writeStr("f=" + math.round(smoothed_rpm / 10, 0))
         else:
-           uart.write("r")
+           uart.writeStr("r")
            print("wrote r")
 
         time.sleep(poll_interval*1.0/1000.0)
