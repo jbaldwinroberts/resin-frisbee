@@ -72,9 +72,9 @@ void setup()
 
 void loop()
 {
-  if (Serial.available()) {
-    Serial.write(Serial.read());
-  }
+//  if (Serial.available()) {
+//    Serial.write(Serial.read());
+//  }
   Serial.write("HEY");
   delay(1000);
   

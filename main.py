@@ -49,13 +49,13 @@ uart.setFlowcontrol(False, False)
 
 while True:
   
-    uart.writeStr("r")
+    #uart.writeStr("r")
     if uart.dataAvailable() > 0:
         message = ""
         while uart.dataAvailable():
             message += uart.readStr(1)
         print(message)
-    time.sleep(5)
+    #time.sleep(5)
 
     
 
