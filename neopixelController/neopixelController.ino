@@ -1,7 +1,4 @@
-#include <libs/Adafruit_NeoPixel/Adafruit_NeoPixel.h>
-#ifdef __AVR__
-  #include <avr/power.h>
-#endif
+#include <Adafruit_NeoPixel.h>
 
 enum STATE
 {
@@ -90,12 +87,12 @@ void loop()
     state = Ready;
   }
 
-  if(Serial1.available() > 0)
+  if(Serial.available() > 0)
   {
     String message;
-    while(Serial1.available())
+    while(Serial.available())
     {
-      message += (char)Serial1.read();
+      message += (char)Serial.read();
     }
 
     Serial.println(message);

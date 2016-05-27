@@ -42,32 +42,46 @@ flight_time = 0
 uart = mraa.Uart(0)
 ser = serial.Serial(uart.getDevicePath(), 9600)
 
-ser.write("r")
+//ser.write("r")
 
 while True:
   
-  if imu.IMURead():
-    data = imu.getIMUData()
-    gyro = data["gyro"]
-    rpm = math.degrees(gyro[2]) * 0.1666666667
-    smoothed_rpm *= 0.992
-    smoothed_rpm += rpm * 0.008
+    ser.write("r")
+    if(ser.available() > 0)
+    {
+        String message;
+        while(ser.available())
+        {
+          message += (char)ser.read();
+        }
+        print(message);
+    }
+    time.sleep(5)
 
-    loop_counter += 1
-    if loop_counter == 250:
-        print("rpm: %f" % (smoothed_rpm))
-        loop_counter = 0
+    
 
-    if flight_time == 0 and smoothed_rpm >= 5:
-        flight_time = time.time()
-    elif flight_time != 0 and smoothed_rpm < 5:
-        print("Flight time: %f" % (time.time() - flight_time))
-        flight_time = 0
+  # if imu.IMURead():
+  #   data = imu.getIMUData()
+  #   gyro = data["gyro"]
+  #   rpm = math.degrees(gyro[2]) * 0.1666666667
+  #   smoothed_rpm *= 0.992
+  #   smoothed_rpm += rpm * 0.008
 
-    # if smoothed_rpm >= 5:
-    #     ser.write(math.round(smoothed_rpm / 10, 0))
-    # else:
-    #    ser.write("r") 
+  #   loop_counter += 1
+  #   if loop_counter == 250:
+  #       print("rpm: %f" % (smoothed_rpm))
+  #       loop_counter = 0
 
-    time.sleep(poll_interval*1.0/1000.0)
+  #   if flight_time == 0 and smoothed_rpm >= 5:
+  #       flight_time = time.time()
+  #   elif flight_time != 0 and smoothed_rpm < 5:
+  #       print("Flight time: %f" % (time.time() - flight_time))
+  #       flight_time = 0
+
+  #   # if smoothed_rpm >= 5:
+  #   #     ser.write(math.round(smoothed_rpm / 10, 0))
+  #   # else:
+  #   #    ser.write("r") 
+
+  #   time.sleep(poll_interval*1.0/1000.0)
 
