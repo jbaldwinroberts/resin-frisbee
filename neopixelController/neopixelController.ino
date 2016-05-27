@@ -86,28 +86,24 @@ void setup()
 
 void loop()
 {
-  if(state == Initialising) flash(strip.Color(255, 0, 0));
-  else if(state == Ready) flash(strip.Color(0, 255, 0));
-  else if(state == Flying) flash(strip.Color(0, 0, 255));
-//  else if(state == Score)
-//  {
-//    theaterChase(strip.Color(255, 255, 255), 50);
-//    state = Ready;
-//  }
-
   if(Serial.available() > 0)
   {
     char message = (char)Serial.read();
     while(Serial.available()) Serial.read();
 
-    if(message == 255)
+    if(message == 'a')
     {
       state = Initialising;
       frequency = 1;
     }
-    else if(message == 254)
+    else if(message == 'b')
     {
       state = Ready;
+      frequency = 1;
+    }
+    else if(message == 'c')
+    {
+      state = Flying;
       frequency = 1;
     }
 //    else if(message == "s")
@@ -120,4 +116,13 @@ void loop()
 //      frequency = (int)message;
 //    }
   }
+  
+  if(state == Initialising) flash(strip.Color(255, 0, 0));
+  else if(state == Ready) flash(strip.Color(0, 255, 0));
+  else if(state == Flying) flash(strip.Color(0, 0, 255));
+//  else if(state == Score)
+//  {
+//    theaterChase(strip.Color(255, 255, 255), 50);
+//    state = Ready;
+//  }
 }
