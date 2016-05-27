@@ -42,20 +42,16 @@ flight_time = 0
 uart = mraa.Uart(0)
 ser = serial.Serial(uart.getDevicePath(), 9600)
 
-//ser.write("r")
+#ser.write("r")
 
 while True:
   
     ser.write("r")
-    if(ser.available() > 0)
-    {
-        String message;
-        while(ser.available())
-        {
-          message += (char)ser.read();
-        }
-        print(message);
-    }
+    if ser.available() > 0:
+        message = ""
+        while ser.available():
+            message += ser.read()
+        print(message)
     time.sleep(5)
 
     
