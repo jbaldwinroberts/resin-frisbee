@@ -47,9 +47,9 @@ ser = serial.Serial(uart.getDevicePath(), 9600)
 while True:
   
     ser.write("r")
-    if ser.available() > 0:
+    if ser.dataAvailable() > 0:
         message = ""
-        while ser.available():
+        while ser.dataAvailable():
             message += ser.read()
         print(message)
     time.sleep(5)
