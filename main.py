@@ -40,7 +40,8 @@ uart.setBaudRate(9600)
 uart.setMode(8, mraa.UART_PARITY_NONE, 1)
 uart.setFlowcontrol(False, False)
 
-uart.writeStr("i")
+uart.writeStr(chr(255))
+print("sent: " + chr(255)) //i = 255
 
 while True:
     if imu.IMURead():
@@ -58,9 +59,12 @@ while True:
             flight_time = 0
 
         if smoothed_rpm >= 5:
-            uart.writeStr(math.round(smoothed_rpm / 10, 0))
+            print("here")
+            #uart.writeStr(chr(charmath.round(smoothed_rpm / 10, 0))
+            #print("sent: " + chr(charmath.round(smoothed_rpm / 10, 0))
         else:
-           uart.writeStr("r")
+            uart.writeStr(chr(254))
+            print("sent: " + chr(254)) //r = 254
 
         time.sleep(1)
 

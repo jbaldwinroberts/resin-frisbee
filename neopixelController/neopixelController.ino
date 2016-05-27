@@ -80,7 +80,7 @@ void setup()
 {
   strip.begin();
   strip.setBrightness(64);
-  strip.show(); // Initialize all pixels to 'off'
+  strip.show();
   Serial.begin(9600, SERIAL_8N1);
 }
 
@@ -89,38 +89,35 @@ void loop()
   if(state == Initialising) flash(strip.Color(255, 0, 0));
   else if(state == Ready) flash(strip.Color(0, 255, 0));
   else if(state == Flying) flash(strip.Color(0, 0, 255));
-  else if(state == Score)
-  {
-    theaterChase(strip.Color(255, 255, 255), 50);
-    state = Ready;
-  }
+//  else if(state == Score)
+//  {
+//    theaterChase(strip.Color(255, 255, 255), 50);
+//    state = Ready;
+//  }
 
   if(Serial.available() > 0)
   {
-    String message;
-    while(Serial.available())
-    {
-      message += (char)Serial.read();
-    }
+    char message = (char)Serial.read();
+    while(Serial.available()) Serial.read();
 
-    if(message == "i")
+    if(message == 255)
     {
       state = Initialising;
       frequency = 1;
     }
-    else if(message == "r")
+    else if(message == 254)
     {
       state = Ready;
       frequency = 1;
     }
-    else if(message == "s")
-    {
-      //state = Score;
-    }
-    else
-    {
-      state = Flying;
-      frequency = message.toInt();
-    }
+//    else if(message == "s")
+//    {
+//      //state = Score;
+//    }
+//    else
+//    {
+//      state = Flying;
+//      frequency = (int)message;
+//    }
   }
 }
