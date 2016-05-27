@@ -47,17 +47,6 @@ uart.setFlowcontrol(False, False)
 uart.writeStr("i")
 
 while True:
-  
-    #uart.writeStr("r")
-    # if uart.dataAvailable() > 0:
-    #     message = ""
-    #     while uart.dataAvailable():
-    #         message += uart.readStr(1)
-    #     print(message)
-    #time.sleep(5)
-
-    
-
     if imu.IMURead():
         data = imu.getIMUData()
         gyro = data["gyro"]
@@ -77,10 +66,9 @@ while True:
             flight_time = 0
 
         if smoothed_rpm >= 5:
-            uart.writeStr("f=" + math.round(smoothed_rpm / 10, 0))
+            uart.writeStr("f=" + math.round(smoothed_rpm / 10, 0) + "#")
         else:
            uart.writeStr("r")
-           print("wrote r")
 
         time.sleep(poll_interval*1.0/1000.0)
 
