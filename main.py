@@ -1,4 +1,4 @@
-import sys, getopt, serial, mraa
+import sys, mraa
 
 sys.path.append('.')
 import RTIMU
@@ -77,9 +77,9 @@ while True:
             flight_time = 0
 
         if smoothed_rpm >= 5:
-            ser.write(math.round(smoothed_rpm / 10, 0))
+            uart.write(math.round(smoothed_rpm / 10, 0))
         else:
-           ser.write("r")
+           uart.write("r")
            print("wrote r")
 
         time.sleep(poll_interval*1.0/1000.0)
