@@ -43,44 +43,44 @@ uart = mraa.Uart(0)
 uart.setBaudRate(9600)
 uart.setMode(8, mraa.UART_PARITY_NONE, 1)
 uart.setFlowcontrol(False, False)
-#ser = serial.Serial(uart.getDevicePath(), 9600)
 
-#ser.write("r")
+uart.writeStr("i")
 
 while True:
   
     #uart.writeStr("r")
-    if uart.dataAvailable() > 0:
-        message = ""
-        while uart.dataAvailable():
-            message += uart.readStr(1)
-        print(message)
+    # if uart.dataAvailable() > 0:
+    #     message = ""
+    #     while uart.dataAvailable():
+    #         message += uart.readStr(1)
+    #     print(message)
     #time.sleep(5)
 
     
 
-  # if imu.IMURead():
-  #   data = imu.getIMUData()
-  #   gyro = data["gyro"]
-  #   rpm = math.degrees(gyro[2]) * 0.1666666667
-  #   smoothed_rpm *= 0.992
-  #   smoothed_rpm += rpm * 0.008
+    if imu.IMURead():
+        data = imu.getIMUData()
+        gyro = data["gyro"]
+        rpm = math.degrees(gyro[2]) * 0.1666666667
+        smoothed_rpm *= 0.992
+        smoothed_rpm += rpm * 0.008
 
-  #   loop_counter += 1
-  #   if loop_counter == 250:
-  #       print("rpm: %f" % (smoothed_rpm))
-  #       loop_counter = 0
+        loop_counter += 1
+        if loop_counter == 250:
+            print("rpm: %f" % (smoothed_rpm))
+            loop_counter = 0
 
-  #   if flight_time == 0 and smoothed_rpm >= 5:
-  #       flight_time = time.time()
-  #   elif flight_time != 0 and smoothed_rpm < 5:
-  #       print("Flight time: %f" % (time.time() - flight_time))
-  #       flight_time = 0
+        if flight_time == 0 and smoothed_rpm >= 5:
+            flight_time = time.time()
+        elif flight_time != 0 and smoothed_rpm < 5:
+            print("Flight time: %f" % (time.time() - flight_time))
+            flight_time = 0
 
-  #   # if smoothed_rpm >= 5:
-  #   #     ser.write(math.round(smoothed_rpm / 10, 0))
-  #   # else:
-  #   #    ser.write("r") 
+        if smoothed_rpm >= 5:
+            ser.write(math.round(smoothed_rpm / 10, 0))
+        else:
+           ser.write("r")
+           print("wrote r")
 
-  #   time.sleep(poll_interval*1.0/1000.0)
+        time.sleep(poll_interval*1.0/1000.0)
 

@@ -72,49 +72,43 @@ void setup()
 
 void loop()
 {
-//  if (Serial.available()) {
-//    Serial.write(Serial.read());
-//  }
-  Serial.write("HEY");
-  delay(1000);
-  
-//  if(state == Initialising) flash(strip.Color(255, 0, 0));
-//  else if(state == Ready) flash(strip.Color(0, 255, 0));
-//  else if(state == Flying) flash(strip.Color(0, 0, 255));
-//  else if(state == Score)
-//  {
-//    theaterChase(strip.Color(255, 255, 255), 50);
-//    state = Ready;
-//  }
-//
-//  if(Serial.available() > 0)
-//  {
-//    String message;
-//    while(Serial.available())
-//    {
-//      message += (char)Serial.read();
-//    }
-//
-//    Serial.println(message);
-//
-//    if(message == "i")
-//    {
-//      state = Initialising;
-//      frequency = 1;
-//    }
-//    else if(message == "r")
-//    {
-//      state = Ready;
-//      frequency = 1;
-//    }
-//    else if(message == "s")
-//    {
-//      state = Score;
-//    }
-//    else
-//    {
-//      state = Flying;
-//      frequency = message.toInt();
-//    }
-//  }
+  if(state == Initialising) flash(strip.Color(255, 0, 0));
+  else if(state == Ready) flash(strip.Color(0, 255, 0));
+  else if(state == Flying) flash(strip.Color(0, 0, 255));
+  else if(state == Score)
+  {
+    theaterChase(strip.Color(255, 255, 255), 50);
+    state = Ready;
+  }
+
+  if(Serial.available() > 0)
+  {
+    String message;
+    while(Serial.available())
+    {
+      message += (char)Serial.read();
+    }
+
+    //Serial.println(message);
+
+    if(message == "i")
+    {
+      state = Initialising;
+      frequency = 1;
+    }
+    else if(message == "r")
+    {
+      state = Ready;
+      frequency = 1;
+    }
+    else if(message == "s")
+    {
+      state = Score;
+    }
+    else
+    {
+      state = Flying;
+      frequency = message.toInt();
+    }
+  }
 }
